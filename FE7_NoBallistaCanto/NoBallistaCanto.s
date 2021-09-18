@@ -1,16 +1,15 @@
 .thumb
 
 @called from 1CBA0
-@r4=current unit data
 
 @vanilla code
 push    {r14}
 ldr     r5,=0x3004690
-ldr     r2, [r5]
+ldr     r2, [r5] @Getting unit data
 ldr     r0, [r2]
 ldr     r3, [r2,#0x4]
-ldr	    r0, [r0,#0x28]	@Unit data
-ldr	    r1, [r3,#0x28]	@Class data
+ldr	    r0, [r0,#0x28]  @Unit abilities
+ldr	    r1, [r3,#0x28]	@Class abilities
 orr r0, r1
 mov r1, #0x02
 and r0, r1
