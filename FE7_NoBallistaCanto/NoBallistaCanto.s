@@ -1,6 +1,6 @@
 .thumb
 
-@called from 1CB9A
+@called from 1CBA0
 @r4=current unit data
 
 @vanilla code

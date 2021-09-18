@@ -14,8 +14,6 @@ ORG $1CBA0
 callHack_r3(NoBallistaCanto)
 SHORT $0000
 
-//ORG $1CBB0
-//SHORT $D113 //changed beq to bne
 POP
 
 NoBallistaCanto:
