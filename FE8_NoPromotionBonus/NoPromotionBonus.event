@@ -1,0 +1,12 @@
+//FE8 No Promotion Bonus
+//By Contro
+
+PUSH
+
+ORG $2C352 //original: "orr r0,0x0"
+SHORT $2000 //modified to: "mov r0,0x0" so all units are treated as unpromoted
+
+ORG $2C3B4 //original: "orr r0,0x0"
+SHORT $2000 //modified to: "mov r0,0x0" so all units are treated as unpromoted
+
+POP
