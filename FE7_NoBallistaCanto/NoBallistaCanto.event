@@ -1,12 +1,6 @@
 //NoBallistaCanto written by Contro
 
-//callHack stuff
-#define B(pointer) "SHORT ((((pointer - CURRENTOFFSET - 4) >> 1)&0x7ff)|0xE000)"
-#define BLRange(pointer) "(pointer - CURRENTOFFSET - 4)>>1"
-#define BL(pointer) "SHORT (((BLRange(pointer)>>11)&0x7ff)|0xf000) ((BLRange(pointer)&0x7ff)|0xf800);"
-
-#define callHack_r3(offset) "SHORT 0x4B01; BL(0xBFC58); SHORT 0xE001; POIN (offset|0x1)"
-
+#include "Extensions/Hack Installation.txt"
 
 PUSH
 
