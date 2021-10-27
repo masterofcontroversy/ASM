@@ -1,0 +1,8 @@
+//FE7 Multiple S Ranks Ported by Contro
+
+PUSH
+
+ORG $29BA6
+SHORT $E007
+
+POP
