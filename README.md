@@ -2,7 +2,7 @@
 I did it! I made more than one ASM hack!
 
 ## FE7_InlineHacks
-Small FE7 hacks that can be directally inserted without needing to be hooked:  
+Small FE7 hacks that can be directly inserted without needing to be hooked:  
 
 * Multiple S Ranks: Allows for more than one S weapon rank
 
