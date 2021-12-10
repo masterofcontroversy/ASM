@@ -1,6 +1,6 @@
 .thumb
 
-@called from 1D248
+@called from 1D244
 
 @Canto check
 push    {r14}
