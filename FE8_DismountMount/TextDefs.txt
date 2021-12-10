@@ -1,0 +1,11 @@
+# 0xd4c MountUMText
+ Mount[X]
+
+## DismountUMText
+ Dismount[X]
+
+## MountDesc
+Call and ride your mount[X]
+
+## DismountDesc
+Continue on foot[X]

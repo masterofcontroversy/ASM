@@ -1,0 +1,73 @@
+//Dismount/Mount Installer, by Crazycolorz5
+/*
+    Notes:
+    This installer automatically repoints the Unit Menu Table. 
+    If you're defining it in another file, then copy the lines
+    that point to the mount and dismount hack into it. 
+    Then, remove the table from this file.
+    
+*/
+
+//The user needs to change these to fit his/her ROM.
+//These are the text IDs used for the unit menu. Change them based on what IDs you're using for the text.
+#define Dismount_Name_TextID        DismountUMText
+#define Dismount_Description_TextID DismountDesc
+#define Mount_Name_TextID           MountUMText
+#define Mount_Description_TextID    MountDesc
+
+//These are for constructing your Mounted Class Table.
+#define MountedUnmounted(classIDMounted, classIDUnmounted) "BYTE classIDMounted classIDUnmounted"
+#define EndMountUnmountedTable "BYTE 0x00 0x00"
+
+//Next, go down a few lines to where you see MountedClassTable,
+//And fill it with entries for mounted and unmounted classes.
+
+
+//Installer ----------
+//#include "_UnitMenuDefs.txt"
+
+  #include "Extensions/Hack Installation.txt"
+
+  //Repoint Unit Menu
+  PUSH
+    ORG $59D1f8         //Repointing Unit Menu Table
+    POIN UnitMenuTable
+  POP
+
+    MountedClassTable:
+    //Replace this with a list of your classes, mounted and unmounted.
+    MountedUnmounted(Cavalier_F, EirikaLord) //Examples
+    MountedUnmounted(Cavalier, EphraimLord)
+    MountedUnmounted(MageKnight, Sage)
+    MountedUnmounted(MageKnight_F, Sage_F)
+    MountedUnmounted(PegasusKnight, Soldier)
+    EndMountUnmountedTable
+    
+    
+  ALIGN 4
+  DismountRoutine:
+  #incbin "ASM/DismountRoutine.dmp"
+  POIN ClassTable
+  POIN MountedClassTable
+  
+  DismountUsability:
+  #incbin "ASM/DismountUsabilityRoutine.dmp"
+  ORG CurrentOffset - 8
+  POIN MountedClassTable
+  POIN TerrainCheck
+  
+  MountRoutine:
+  #incbin "ASM/MountRoutine.dmp"
+  POIN ClassTable
+  POIN MountedClassTable
+  
+  MountUsability:
+  #incbin "ASM/MountUsabilityRoutine.dmp"
+  ORG CurrentOffset - 8
+  POIN MountedClassTable
+  POIN TerrainCheck
+  
+  TerrainCheck:
+  #incbin "ASM/TerrainCheck.dmp"
+  ORG CurrentOffset - 4
+  POIN ClassTable
