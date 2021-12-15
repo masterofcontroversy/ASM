@@ -17,7 +17,7 @@ mov     r6,r1
 mov     r1,r2
 add     r1,#0x66 @Attacker crit rate
 mov     r0,r6
-add     r0,#0x68 @Defender Crid avoid
+add     r0,#0x68 @Defender crit avoid
 ldrh    r1,[r1]
 ldrh    r0,[r0]
 sub     r1,r0
