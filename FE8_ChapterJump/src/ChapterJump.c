@@ -81,11 +81,6 @@ static int JumpIdle (MenuProc* menu, MenuCommandProc* command) {
     return ME_NONE;
 }
 
-/*
-Event data:
-22 2A 01 00 28 02 07 00 20 01 00 00
-       ^ Chapter ID byte
-*/
 static int JumpEvent(MenuProc* menu, MenuCommandProc* command) {
     struct ChapterJumpProc* const proc = (void*) menu->parent;
 
@@ -124,6 +119,7 @@ static int JumpDrawIdle(MenuProc* menu, MenuCommandProc* command) {
     //TODO display chapter ID if there is no chapter title
     Text_SetColorId(&command->text, TEXT_COLOR_NORMAL);
     if (title == 0) {
+        Text_SetXCursor(&command->text, 0xC);
         Text_DrawNumberOr2Dashes(&command->text, proc->menuIndex);
     }
     else {

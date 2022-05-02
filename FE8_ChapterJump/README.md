@@ -16,4 +16,4 @@ This hack uses MNC2, so without the proper setup there will be a few oddities li
 (I likely will not be making a non-MNC2 version since I do not use the world map or skirmishes).
 
 This hack only goes up to the vanilla amount of chapters (I might expand that later).  
-If a chapter doesn't have a title TextID assigned to it, a single digit will display instead of the chapter name. I intend on fixing this eventually.
+
