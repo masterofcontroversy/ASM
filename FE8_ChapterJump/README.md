@@ -16,7 +16,3 @@ This hack uses MNC2, so without the proper setup there will be a few oddities li
 (I likely will not be making a non-MNC2 version since I do not use the world map or skirmishes).
 
 This hack only goes up to the vanilla amount of chapters (I might expand that later).  
-<<<<<<< HEAD
-=======
-
->>>>>>> 5812c890e2559297e9e3952a12cdefebe0cbefc9
