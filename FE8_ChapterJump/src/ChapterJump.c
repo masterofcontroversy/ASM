@@ -1,67 +1,22 @@
-#include "gbafe.h"
+#include "ChapterJump.h"
 
-static int  JumpEvent(MenuProc* menu, MenuCommandProc* command);
-static int  JumpIdle (MenuProc* menu, MenuCommandProc* command);
-static int  JumpDrawIdle(MenuProc* menu, MenuCommandProc* command);
-static void JumpDraw(struct MenuProc* menu, struct MenuCommandProc* command);
-static void JumpMenuEnd(struct MenuProc* menu);
+//Initializes menu. Called from chapter menu
+int Jump_OnSelect(MenuProc* menu, MenuCommandProc* command) {
+    ChapterJumpProc* proc = (void*) ProcStart(Proc_ChapterJump, ROOT_PROC_3);
 
-struct DebugEventList
-{
-    u32 eventPointer;
-};
+    proc->menuIndex = 0;
 
-extern int EmptyEvent;
-extern struct DebugEventList DebugEvent[0xFF];
+    StartMenuChild(&ChapterJump_MenuDefinition, (void*) proc);
 
-struct ChapterJumpProc
-{
-    PROC_HEADER;
-
-    /* 2C */ struct Unit* unit;
-
-    /* 30 */ u8 menuIndex;
-};
-
-static const struct ProcInstruction Proc_ChapterJump[] =
-{
-    PROC_CALL_ROUTINE(LockGameLogic),
-
-    PROC_YIELD,
-
-    PROC_CALL_ROUTINE(UnlockGameLogic),
-    PROC_END,
-};
-
-//For selecting what each menu command does.
-static const struct MenuCommandDefinition MenuCommands_Jump[] =
-{
-    {
-        .isAvailable = MenuCommandAlwaysUsable,
-
-        .onDraw = JumpDraw,
-        .onIdle = JumpIdle,
-        .onEffect = JumpEvent,
-    },
-
-    {} //END
-
-};
-
-static const struct MenuDefinition Menu_Jump =
-{
-    .geometry = { 7, 1, 16 },
-    .commandList = MenuCommands_Jump,
-
-    .onEnd = JumpMenuEnd,
-    .onBPress = (void*) (0x080152F4+1), // Goes back to main game loop
-};
+    return ME_DISABLE | ME_END | ME_PLAY_BEEP | ME_CLEAR_GFX;
+}
 
 //Handles what to do when buttons are pushed
 static int JumpIdle (MenuProc* menu, MenuCommandProc* command) {
-    struct ChapterJumpProc* const proc = (void*) menu->parent;
+    ChapterJumpProc* const proc = (void*) menu->parent;
 
-    //TODO update graphics in a cleaner way
+    //If left or right is pushed, change menuIndex accordingly
+    //and refresh the menu graphics
     if (gKeyState.repeatedKeys & KEY_DPAD_LEFT) {
         if (proc->menuIndex != 0) {
             proc->menuIndex--;
@@ -69,7 +24,6 @@ static int JumpIdle (MenuProc* menu, MenuCommandProc* command) {
             PlaySfx(0x6B);
         }
     }
-
     if (gKeyState.repeatedKeys & KEY_DPAD_RIGHT) {
         if (proc->menuIndex < 0x4E) {
             proc->menuIndex++;
@@ -81,72 +35,61 @@ static int JumpIdle (MenuProc* menu, MenuCommandProc* command) {
     return ME_NONE;
 }
 
+<<<<<<< HEAD
+//Handles chapter jumping
+static int JumpEffect(MenuProc* menu, MenuCommandProc* command) {
+    ChapterJumpProc* const proc = (void*) menu->parent;
+=======
 static int JumpEvent(MenuProc* menu, MenuCommandProc* command) {
     struct ChapterJumpProc* const proc = (void*) menu->parent;
+>>>>>>> 5812c890e2559297e9e3952a12cdefebe0cbefc9
 
-    int eventList[8] = {
-    0x003C1721, //FADI 60
-    0x00000A40, //CALL
-    DebugEvent[proc->menuIndex].eventPointer,
-    0x00020540, //SVAL 2
-    proc->menuIndex,
-    0xFFFD2A22, //MNC2
-    0x00070228, //NoFade
-    0x00000120  //ENDA
-    };
+    //Move template event to RAM location
+    memcpy(gRAMChapterJumpEvent, &gChapterJumpEvent, sizeof(ChapterJumpEvent));
 
-    if (eventList[2] == 0) {
-        eventList[2] = (int)&EmptyEvent;
+    //Set chapter index to jump to
+    gRAMChapterJumpEvent->chapterIndex = proc->menuIndex;
+
+    //Optional extra event before jump
+    u32* debugEventPointer = DebugEvent[proc->menuIndex].eventPointer;
+    if (debugEventPointer) {
+        gRAMChapterJumpEvent->prepEventPointer = debugEventPointer;
     }
 
-    memcpy((void*)0x202B670, &eventList, 32);
+    //Run the event
+    CallMapEventEngine(gRAMChapterJumpEvent, 1);
 
-    CallMapEventEngine((void*) (0x202B670), 1);
-    
     return ME_END;
-
 }
 
-//I think this is supposed to run repeatedly, but that doesn't seem to be the case
-static int JumpDrawIdle(MenuProc* menu, MenuCommandProc* command) {
-    struct ChapterJumpProc* const proc = (void*) menu->parent;
-    u16* const out = gBg0MapBuffer + TILEMAP_INDEX(command->xDrawTile, command->yDrawTile);
+//Draws the UI
+static int JumpDraw(MenuProc* menu, MenuCommandProc* command) {
+    ChapterJumpProc* const proc = (void*) menu->parent;
+    u16* const out = gBg0MapBuffer + TILEMAP_INDEX(command->xDrawTile,
+                                                   command->yDrawTile);
 
+    //Get chapter title ID
     u16 title = GetChapterDefinition(proc->menuIndex)->titleID;
 
+    //Initialize text
     Text_Clear(&command->text);
-
-    //TODO display chapter ID if there is no chapter title
     Text_SetColorId(&command->text, TEXT_COLOR_NORMAL);
+<<<<<<< HEAD
+
+    //Display chapter title if it's set
+    if (!title) {
+        Text_SetXCursor(&command->text, 0x8);
+=======
     if (title == 0) {
         Text_SetXCursor(&command->text, 0xC);
+>>>>>>> 5812c890e2559297e9e3952a12cdefebe0cbefc9
         Text_DrawNumberOr2Dashes(&command->text, proc->menuIndex);
     }
+    //Otherwise, display the chapter ID
     else {
         Text_DrawString(&command->text, GetStringFromIndex(title));
     }
 
     Text_Display(&command->text, out);
     return ME_NONE;
-}
-
-//Initializes menu
-int Jump_OnSelect(struct MenuProc* menu, struct MenuCommandProc* command) {
-    struct ChapterJumpProc* proc = (void*) ProcStart(Proc_ChapterJump, ROOT_PROC_3);
-
-    proc->menuIndex = 0;
-
-    StartMenuChild(&Menu_Jump, (void*) proc);
-
-    return ME_DISABLE | ME_END | ME_PLAY_BEEP | ME_CLEAR_GFX;
-}
-
-//This actually draws the UI
-static void JumpDraw(struct MenuProc* menu, struct MenuCommandProc* command) {
-    command->onCycle = (void*) JumpDrawIdle(menu, command);
-}
-
-//For the final things before exiting the menu
-static void JumpMenuEnd(struct MenuProc* menu) {
-    return;
 }

@@ -1,9 +1,14 @@
 PUSH 
+
 ORG 0x59D21C  // Chapter Menu
 POIN ChapterMenu
 
-POP 
+POP
 
+//Notify the user if something else is repointing the chapter menu
+PROTECT 0x59D21C 0x59D220
+
+//Remove text stuff if you have it defined elsewhere
 #define ChapterJumpTextID 0x0060
 #define ChapterJumpDescID 0x0061
 
@@ -21,8 +26,8 @@ BYTE 0
 ALIGN 4
 ChapterMenu:
 
-// Mimics commands at 08059CE6C but adds backup option.
-// Copied from Huichelaar 
+// Mimics commands at 08059CE6C but adds chapter jump option.
+// Copied from Huichelaar/Vesly
 
 // Unit
 WORD  0x80D7EDC
@@ -124,14 +129,14 @@ WORD  0x0
 
 // Chapter Jump 
 WORD  0x0
-SHORT ChapterJumpTextID
-SHORT ChapterJumpDescID
-BYTE  0x3
+SHORT ChapterJumpTextID //Command name
+SHORT ChapterJumpDescID //Command description
+BYTE  0x3               //Text color
 BYTE  0x75
 SHORT 0x0
-WORD  0x804F449 // Always usable 
+WORD  0x804F449         //Always usable 
 WORD  0x0
-POIN  Jump_OnSelect
+POIN  Jump_OnSelect     //Function called when A is pressed
 WORD  0x0
 WORD  0x0
 WORD  0x0
