@@ -35,14 +35,9 @@ static int JumpIdle (MenuProc* menu, MenuCommandProc* command) {
     return ME_NONE;
 }
 
-<<<<<<< HEAD
 //Handles chapter jumping
 static int JumpEffect(MenuProc* menu, MenuCommandProc* command) {
     ChapterJumpProc* const proc = (void*) menu->parent;
-=======
-static int JumpEvent(MenuProc* menu, MenuCommandProc* command) {
-    struct ChapterJumpProc* const proc = (void*) menu->parent;
->>>>>>> 5812c890e2559297e9e3952a12cdefebe0cbefc9
 
     //Move template event to RAM location
     memcpy(gRAMChapterJumpEvent, &gChapterJumpEvent, sizeof(ChapterJumpEvent));
@@ -74,15 +69,10 @@ static int JumpDraw(MenuProc* menu, MenuCommandProc* command) {
     //Initialize text
     Text_Clear(&command->text);
     Text_SetColorId(&command->text, TEXT_COLOR_NORMAL);
-<<<<<<< HEAD
 
     //Display chapter title if it's set
     if (!title) {
         Text_SetXCursor(&command->text, 0x8);
-=======
-    if (title == 0) {
-        Text_SetXCursor(&command->text, 0xC);
->>>>>>> 5812c890e2559297e9e3952a12cdefebe0cbefc9
         Text_DrawNumberOr2Dashes(&command->text, proc->menuIndex);
     }
     //Otherwise, display the chapter ID
