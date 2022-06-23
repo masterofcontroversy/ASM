@@ -1,0 +1,5 @@
+//Steal from NPCs
+PUSH
+ORG 0x25BAC
+SHORT 0x2800 0xD023
+POP

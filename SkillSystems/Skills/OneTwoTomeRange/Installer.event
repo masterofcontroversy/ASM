@@ -1,0 +1,13 @@
+/*Range loop skill*/
+
+ALIGN 4
+TomeRangeUpSkill:
+#incbin "TomeRange.dmp"
+POIN TomeRangeExceptionList
+
+//Items in this list will not get the range bonus
+ALIGN 4
+TomeRangeExceptionList:
+//Item IDs here
+BYTE Fire Lighting Flux
+BYTE 0 //Terminator
