@@ -1,3 +1,5 @@
+#include "Extensions/Hack Installation.txt"
+
 PUSH
 //New RES. GFX
 ORG 0x8D0AC
