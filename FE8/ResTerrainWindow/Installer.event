@@ -12,13 +12,22 @@ ORG 0x8CA50
 WORD 0x2003F6C
 WORD 0x200446c
 
-//Background TSA
+//Background TSA location
 ORG 0x8CB2C
 WORD 0x20044ac
+
+//Broken Wall TSA location
+ORG 0x8CAA8
+WORD 0x200406E
 
 //Point to new text TSA
 ORG 0x8CA58
 POIN NewTerrainWindowText_TSA
+
+//Point to new broken wall TSA
+//Need this to be the same size as the text TSA
+ORG 0x8CAAC
+POIN NewBrokenWall_TSA
 
 //Point to new background TSA
 ORG 0x8CB30
@@ -38,6 +47,10 @@ TerrainResDisplay:
 ALIGN 4
 NewTerrainWindow_TSA:
 #incbin "gfx/TerrainWindow.dmp"
+
+ALIGN 4
+NewBrokenWall_TSA:
+#incbin "gfx/BrokenWall.dmp"
 
 ALIGN 4
 NewTerrainWindowText_TSA:
