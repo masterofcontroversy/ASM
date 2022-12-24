@@ -13,7 +13,7 @@ POP
 
 //Option bits
 #define FollowUp        0x000004
-#define Retaliatation   0x000008
+#define Retaliation     0x000008
 #define BraveHit        0x000010
 #define PoisonHit       0x000040
 #define BackfireHit     0x000080
@@ -55,18 +55,12 @@ POP
 
 ALIGN 4
 gAnimSwapList:
-//Eirika Lord to Swordmaster_F on brave follow-up
-AnimSwapEntry(3, 0x17, 0, 0, BraveHit|FollowUp)
-//Lord to Greatknight Lance on brave hit
-AnimSwapEntry(3, 84, 0, 0, BraveHit)
+//Eirika Lord to Swordmaster_F on follow-up
+AnimSwapEntry(3, 0x17, 0, 0, FollowUp)
 //Eirika Lord to Cavalier_F Sword on kill
 AnimSwapEntry(3, 0x37, 0, 0, KillHit)
-//Ranger_F Bow to Ranger_M Bow on killing blow
-AnimSwapEntry(0x32, 0x2F, 0, 0, 0)
-//Sage_F to Mage_F on killing blow
-AnimSwapEntry(0x6F, 0x6C, 0, 0, KillHit)
-//Fighter to Swordmaster_M on retalliation
-AnimSwapEntry(0x19, 0x15, 0, 0, Retaliatation)
+//Fighter to Swordmaster_M on retaliation 
+AnimSwapEntry(0x19, 0x15, 0, 0, Retaliation)
 
 
 WORD 0 0 0 0 //TERMINATOR
