@@ -57,11 +57,11 @@ POP
 ALIGN 4
 gAnimSwapList:
 //Eirika Lord to Swordmaster_F on follow-up
-AnimSwapEntry(3, 0x17, 0, 0, FollowUp)
+AnimSwapEntry(3, 0x17, 0, 0, FollowUp, 0)
 //Eirika Lord to Cavalier_F Sword on kill
-AnimSwapEntry(3, 0x37, 0, 0, KillHit)
+AnimSwapEntry(3, 0x37, 0, 0, KillHit, 0)
 //Fighter to Swordmaster_M on retaliation 
-AnimSwapEntry(0x19, 0x15, 0, 0, Retaliation)
+AnimSwapEntry(0x19, 0x15, 0, 0, Retaliation, 0)
 
 
 WORD 0 0 0 0 //TERMINATOR
