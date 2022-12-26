@@ -6,6 +6,7 @@ jumpToHack(GetExpByAction)
 POP
 PROTECT 0x2C6CC 0x2C6D4
 
+//Used if no match is found in ExpActionList
 #define DefaultValue 10
 
 ALIGN 4
@@ -16,6 +17,7 @@ WORD DefaultValue
 
 #define ExpActionListEntry(action, expValue) "BYTE action expValue"
 
+//References gActionData.unitActionType
 #define DanceID     0x4 //Includes Play
 #define StealID     0x6
 #define SummonID    0x7
