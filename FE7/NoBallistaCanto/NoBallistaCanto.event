@@ -7,6 +7,7 @@ PUSH
 ORG $1CBA0
 callHack_r3(NoBallistaCanto)
 SHORT $0000
+PROTECT $1CBA0 currentOffset
 
 POP
 

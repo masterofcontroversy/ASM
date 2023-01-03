@@ -4,6 +4,7 @@ PUSH
 
 ORG $2ACA4
 jumpToHack(CritCap)
+PROTECT $2ACA4 currentOffset
 
 POP
 

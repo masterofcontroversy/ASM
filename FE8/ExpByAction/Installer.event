@@ -3,8 +3,8 @@
 PUSH
 ORG 0x2C6CC
 jumpToHack(GetExpByAction)
+PROTECT 0x2C6CC currentOffset
 POP
-PROTECT 0x2C6CC 0x2C6D4
 
 //Used if no match is found in ExpActionList
 #define DefaultValue 10
@@ -28,5 +28,5 @@ ExpActionListEntry(SummonID, 7)
 ExpActionListEntry(StealID, 7)
 ExpActionListEntry(DanceID, 6)
 
-SHORT 0x0000
+SHORT 0x0000 //TERMINATOR
 

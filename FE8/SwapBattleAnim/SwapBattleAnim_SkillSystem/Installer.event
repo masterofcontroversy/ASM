@@ -1,9 +1,11 @@
 PUSH
 ORG 0x4FE14
 jumpToHack(SwapBattleWrapper)
+PROTECT 0x4FE14 currentOffset
 
 ORG 0x59674
 jumpToHack(AnimSwap_MaySwapHook)
+PROTECT 0x59674 currentOffset
 POP
 
 #include "_src/SwapBattleAnim.lyn.event"

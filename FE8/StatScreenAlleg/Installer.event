@@ -10,6 +10,7 @@
 PUSH
 ORG $8859c //hook
 jumpToHack(StatscreenAlleg)
+PROTECT $8859c currentOffset
 POP
 
 StatscreenAlleg:

@@ -1,6 +1,7 @@
 PUSH
     ORG $58034
     jumpToHack(JavelinAnimSub)
+    PROTECT $58034 currentOffset
 POP
 
 ALIGN 4
