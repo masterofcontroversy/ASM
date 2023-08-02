@@ -11,8 +11,14 @@ POP
 #include "RefreshMovementHook.lyn.event"
 #include "CancelTradeHook.lyn.event"
 
+ALIGN 4
+CantoBugFixProcName:
+String("CantoBugFix")
+BYTE 0
+
 //This proc is here to exist for a couple of frames so RefreshMovementHook knows not to reset movement
 ALIGN 4
 CantoBugProc:
+PROC_SET_NAME(CantoBugFixProcName)
 PROC_SLEEP(1)
 PROC_END
