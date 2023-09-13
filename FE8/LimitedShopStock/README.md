@@ -33,5 +33,8 @@ To assign a list of limited items to a chapter, use the `SetChapterShopStock` ma
 SetChapterShopStock(2, Ch2ShopStock)
 ```
 
+To load a chapter's shop list, use the `InitShopStock` function.  
+This can be called as an ASMC in a chapter's starting event or be set to run at the start of a chapter via a hook.
+
 ### Credits
 Thanks to the people who work on the [FE8U decomp](https://github.com/FireEmblemUniverse/fireemblem8u) for making this possible.
