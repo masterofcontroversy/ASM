@@ -7,7 +7,7 @@
 
 ALIGN 4
 OutOfStockTextBase:
-WORD ArmoryOutOfStock
+WORD ArmoryOutOfStockText
 
 //Fills to fit vanilla chapter count
 gShopStockTable:

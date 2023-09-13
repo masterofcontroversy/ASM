@@ -1,8 +1,8 @@
-## ArmoryOutOfStock
+## ArmoryOutOfStockText
 Sorry, we don't have that.[A][X]
 
-## VendorOutOfStock
+## VendorOutOfStockText
 You took the last one![A][X]
 
-## SecretShopOutOfStock
+## SecretShopOutOfStockText
 Hmm... We're out.[A][X]
