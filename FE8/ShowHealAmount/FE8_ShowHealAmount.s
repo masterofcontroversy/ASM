@@ -31,11 +31,6 @@
 @Start Healing preview
 bl		Copied_34FB0_Func		@most copied, at any rate
 
-@Start green text
-blh EndGreenTextColorManager, r0
-mov r0, #0x0
-blh NewGreenTextColorManager, r1
-
 pop		{r4}
 pop		{r1}
 bx		r1
@@ -61,6 +56,12 @@ mov		r14,r3
 mov		r3,#0x0
 .short	0xF800
 mov		r5,r0
+
+@Start green text
+blh   EndGreenTextColorManager, r0
+mov   r0, r5
+blh   NewGreenTextColorManager, r1
+
 add		r5,#0x38
 mov		r0,r5
 mov		r1,r6
