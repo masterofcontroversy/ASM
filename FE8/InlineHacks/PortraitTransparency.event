@@ -1,0 +1,9 @@
+//Prevent Portraits being semi-transparent when loaded before text box
+PUSH
+ORG 0x13BEA
+BYTE 0x0
+ORG 0x13BEE
+BYTE 0x0
+ORG 0x13BF0
+BYTE 0x0
+POP
