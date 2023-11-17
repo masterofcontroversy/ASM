@@ -1,0 +1,16 @@
+//Allow NPCs to drop
+PUSH
+    ORG $32942
+    BYTE $80
+
+    //Make popup say item obtained for NPCs.
+    ORG $114F0
+    BYTE $80
+//1e098 - r0 is unit ptr, r1 is item short, r2 is proc
+    //hook at 1e09c
+    ORG $1E09C
+    jumpToHack(SendGreenItemsToConvoy)
+POP
+
+SendGreenItemsToConvoy:
+#include "GreenDropsToConvoy.lyn.event"
