@@ -33,19 +33,19 @@ int GetItemStockEntryNumber(u16 item) {
             }
         }
     }
-    return 0;
+    return (-1); //Item is not a stock item
 }
 
 bool IsItemInStock(u16 item) {
     int stockItem = GetItemStockEntryNumber(item);
-    if (stockItem && gCurrentShopStocks[stockItem]) {
+    if (stockItem != (-1) && gCurrentShopStocks[stockItem]) {
         return TRUE;
     }
     return FALSE;
 }
 
 bool IsItemStockItem(u16 item) {
-    if (GetItemStockEntryNumber(item)) {
+    if (GetItemStockEntryNumber(item) != (-1)) {
         return TRUE;
     }
     return FALSE;
@@ -53,7 +53,7 @@ bool IsItemStockItem(u16 item) {
 
 void ReduceItemStock(u16 item) {
     int stockItem = GetItemStockEntryNumber(item);
-    if (stockItem && gCurrentShopStocks[stockItem] > 0) {
+    if (stockItem != (-1) && gCurrentShopStocks[stockItem] > 0) {
         gCurrentShopStocks[stockItem]--;
     }
 }
