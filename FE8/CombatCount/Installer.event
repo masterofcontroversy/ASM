@@ -1,0 +1,30 @@
+#define CombatCountTableStart     0x2028C30
+#define CombatCountTableSize      93
+
+#define PlayerCombatCountTable    CombatCountTableStart
+#define AllyCombatCountTable      CombatCountTableStart+51
+#define EnemyCombatCountTable     CombatCountTableStart+71
+#define OtherCombatCountTable     CombatCountTableStart+121
+
+PUSH
+    ORG 0x15436
+    SHORT 0x46C0
+    jumpToHack(CombatCountResetWrapper)
+    SHORT 0x46C0
+    PROTECT 0x15436 currentOffset
+POP
+
+#include "_src/CombatCount.lyn.event"
+#include "_src/CombatCountSaveRoutines.lyn.event"
+#include "_src/ResetUnits.lyn.event"
+
+ALIGN 4
+CombatCountTablePointers:
+WORD PlayerCombatCountTable
+WORD AllyCombatCountTable
+WORD EnemyCombatCountTable
+WORD OtherCombatCountTable //For link arena
+
+ALIGN 4
+CombatCountTableSizeLink:
+WORD CombatCountTableSize
