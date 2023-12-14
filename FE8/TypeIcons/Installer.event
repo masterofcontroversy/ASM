@@ -16,9 +16,10 @@ POP
 #define SetAidIcon(classID, iconID) "PUSH; ORG gAidIconTable + classID; BYTE iconID; POP"
 #define SetSecondAidIcon(classID, iconID) "PUSH; ORG gSecondAidIconTable + classID; BYTE iconID; POP"
 
-#define HorseIcon 0
-#define PegasusIcon 1
-#define WyvernIcon 2
+//Vanilla (non-icon rework) IDs
+#define HorseIcon 0x81
+#define PegasusIcon 0x82
+#define WyvernIcon 0x83
 
 gAidIconTable:
 FILL 0x100 0xFF
