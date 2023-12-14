@@ -1,0 +1,48 @@
+//Edit vanilla call to pass a unit pointer instead of a attribute bitfield
+PUSH
+    //Stat screen page 1
+    //This only applies to vanilla stat screens.
+    //Modular Stat Screen's page 1 must be edited, if you use MSS.
+    ORG 0x87362
+    SHORT 0x46C0 0x46C0 0x46C0 0x46C0 0x46C0
+
+    //Rescue display
+    ORG 0x34AEA
+    SHORT 0x46C0 0x46C0 0x46C0 0x46C0 0x46C0
+POP
+
+#include "TypeIcons.lyn.event"
+
+#define SetAidIcon(classID, iconID) "PUSH; ORG gAidIconTable + classID; BYTE iconID; POP"
+#define SetSecondAidIcon(classID, iconID) "PUSH; ORG gSecondAidIconTable + classID; BYTE iconID; POP"
+
+#define HorseIcon 0
+#define PegasusIcon 1
+#define WyvernIcon 2
+
+gAidIconTable:
+FILL 0x100 0xFF
+
+gSecondAidIconTable:
+FILL 0x100 0xFF
+
+SetAidIcon(Cavalier, HorseIcon)
+SetAidIcon(Cavalier_F, HorseIcon)
+SetAidIcon(Paladin, HorseIcon)
+SetAidIcon(Paladin_F, HorseIcon)
+SetAidIcon(GreatKnight, HorseIcon)
+SetAidIcon(GreatKnight_F, HorseIcon)
+SetAidIcon(Ranger, HorseIcon)
+SetAidIcon(Ranger_F, HorseIcon)
+SetAidIcon(EirikaMasterLord, HorseIcon)
+SetAidIcon(EphraimMasterLord, HorseIcon)
+SetAidIcon(MageKnight, HorseIcon)
+
+SetAidIcon(FalcoKnight, PegasusIcon)
+SetAidIcon(PegasusKnight, PegasusIcon)
+
+SetAidIcon(WyvernRider, WyvernIcon)
+SetAidIcon(WyvernLord, WyvernIcon)
+SetAidIcon(WyvernRider_F, WyvernIcon)
+SetAidIcon(WyvernLord_F, WyvernIcon)
+
