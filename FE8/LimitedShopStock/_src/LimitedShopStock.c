@@ -36,19 +36,25 @@ int GetItemStockEntryNumber(u16 item) {
     return (-1); //Item is not a stock item
 }
 
-bool IsItemInStock(u16 item) {
+int GetItemStock(u16 item) {
     int stockItem = GetItemStockEntryNumber(item);
-    if (stockItem != (-1) && (*gCurrentShopStocks)[stockItem]) {
-        return TRUE;
+    if (stockItem != (-1)) {
+        return (*gCurrentShopStocks)[stockItem];
     }
-    return FALSE;
+    return (-1); 
 }
 
-bool IsItemStockItem(u16 item) {
-    if (GetItemStockEntryNumber(item) != (-1)) {
-        return TRUE;
+bool IsItemInStock(u16 item) {
+    int stockItem = GetItemStockEntryNumber(item);
+    if (stockItem != (-1)) {
+        if ((*gCurrentShopStocks)[stockItem]) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
     }
-    return FALSE;
+    return TRUE;
 }
 
 void ReduceItemStock(u16 item) {
@@ -58,20 +64,32 @@ void ReduceItemStock(u16 item) {
     }
 }
 
+void DrawShopItemLine(struct TextHandle* th, int item, struct Unit* unit, u16* dst) {
+    DrawItemMenuLine(th, item, IsItemDisplayUsable(unit, item), dst);
+
+    if (IsItemSellable(item) != 0) {
+        DrawUiNumber(dst + 0x11, 2, GetItemSellPrice(item));
+    } else {
+        Text_InsertString(th, 0x5C, 2, GetStringFromIndex(0x537));
+    }
+
+    return;
+}
+
 void DrawStockedItemLine(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
-    Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_GOLD : TEXT_COLOR_GRAY));
+    Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
     Text_AppendStringAscii(text, GetItemName(item));
 
     Text_Display(text, mapOut + 2);
 
     DrawUiNumberOrDoubleDashes(mapOut + 11, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
+    DrawUiNumberOrDoubleDashes(mapOut + 20, TEXT_COLOR_BLUE, GetItemStock(item));
 
     DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
 void sub_80B5164(TextHandle* th, int item, Unit* unit, u16* dst) {
     u8 visible;
-    bool isStockItem = IsItemStockItem(item);
 
     int price = GetItemPurchasePrice(unit, item);
 
@@ -81,12 +99,7 @@ void sub_80B5164(TextHandle* th, int item, Unit* unit, u16* dst) {
         visible = IsItemDisplayUsable(unit, item);
     }
 
-    if (isStockItem) {
-        DrawStockedItemLine(th, item, IsItemInStock(item), dst);
-    }
-    else {
-        DrawItemMenuLine(th, item, visible, dst);
-    }
+    DrawStockedItemLine(th, item, visible, dst);
 
     sub_8004B88(
         dst + 0x11,
@@ -124,7 +137,7 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
 
     b = ((proc->unk_5d * 16)) - 72;
 
-    DisplayUiHand(56, a - b);
+    DisplayUiHand(40, a - b);
 
     if ((proc->helpTextActive != 0) && (unkC != 0)) {
         a = (proc->curIndex * 16);
@@ -159,7 +172,7 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
     price = GetItemPurchasePrice(proc->unit, proc->shopItems[proc->curIndex]);
 
     if (gKeyState.pressedKeys & KEY_BUTTON_A) {
-        if (IsItemStockItem(proc->shopItems[proc->curIndex]) && !IsItemInStock(proc->shopItems[proc->curIndex])) {
+        if (!IsItemInStock(proc->shopItems[proc->curIndex])) {
             StartShopDialogue(OutOfStockTextBase, proc);
 
             ProcGoto(proc, 1);

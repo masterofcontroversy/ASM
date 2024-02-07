@@ -49,6 +49,8 @@ extern void sub_8014B88(int, int);
 extern void sub_80B4F90(BmShopProc*);
 extern void UpdateShopItemCounts(BmShopProc*);
 extern void DisplayGoldBoxText(u16* tm);
+extern s8 IsItemSellable(int);
+extern u16 GetItemSellPrice(int item);
 
 extern u16 OutOfStockTextBase;
 
