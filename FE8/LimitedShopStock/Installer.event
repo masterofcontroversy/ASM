@@ -6,6 +6,10 @@
 #define StockedItemLimit 20
 
 ALIGN 4
+gCurrentShopStocks:
+WORD 0x202774C
+
+ALIGN 4
 OutOfStockTextBase:
 WORD ArmoryOutOfStockText
 
