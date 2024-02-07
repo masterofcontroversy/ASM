@@ -13,13 +13,13 @@ void InitShopStock() {
     ShopStockEntry* limitedItems = gShopStockTable[gChapterData.chapterIndex];
     if (limitedItems) {
         while (limitedItems[i].item) {
-            gCurrentShopStocks[i] = limitedItems[i].stock;
+            (*gCurrentShopStocks)[i] = limitedItems[i].stock;
             ++i;
         }
-        gCurrentShopStocks[i] = 0; //Termintator
+        (*gCurrentShopStocks)[i] = 0; //Termintator
     }
     else {
-        memset(gCurrentShopStocks, 0, 1); //Terminator only
+        memset(*gCurrentShopStocks, 0, 1); //Terminator only
     }
 }
 
@@ -38,7 +38,7 @@ int GetItemStockEntryNumber(u16 item) {
 
 bool IsItemInStock(u16 item) {
     int stockItem = GetItemStockEntryNumber(item);
-    if (stockItem != (-1) && gCurrentShopStocks[stockItem]) {
+    if (stockItem != (-1) && (*gCurrentShopStocks)[stockItem]) {
         return TRUE;
     }
     return FALSE;
@@ -53,8 +53,8 @@ bool IsItemStockItem(u16 item) {
 
 void ReduceItemStock(u16 item) {
     int stockItem = GetItemStockEntryNumber(item);
-    if (stockItem != (-1) && gCurrentShopStocks[stockItem] > 0) {
-        gCurrentShopStocks[stockItem]--;
+    if (stockItem != (-1) && (*gCurrentShopStocks)[stockItem] > 0) {
+        (*gCurrentShopStocks)[stockItem]--;
     }
 }
 

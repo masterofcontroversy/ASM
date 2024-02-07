@@ -54,5 +54,5 @@ extern u16 OutOfStockTextBase;
 
 extern TextHandle gShopItemTexts[6];
 
-extern u8 gCurrentShopStocks[];
+extern u8 (*gCurrentShopStocks)[];
 extern ShopStockEntry* gShopStockTable[];
