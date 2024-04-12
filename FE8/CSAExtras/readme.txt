@@ -123,7 +123,7 @@ Command list
 0x80 - Preserved for Mikey's camera pan (https://feuniverse.us/t/fe6-7-8-circles-spell-animation-creator-updated-to-v1-1/1946/33)
 0x81 - Shifts spell object by XX pixels towards opponent when fighting at range
   Argument XX is the offset to scroll by
-0x81 - Shifts spell background (layer 1) by XX pixels towards opponent when fighting at range
+0x82 - Shifts spell background (layer 1) by XX pixels towards opponent when fighting at range
   Argument XX is the offset to scroll by
-0x82 through 0xFF - Ignored/unused
+0x83 through 0xFF - Ignored/unused
 
