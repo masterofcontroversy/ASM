@@ -76,8 +76,11 @@ int GetSwapAnim(AnimSwapProc* proc){
 //Needed because transforming classes and the Demon King work differently than normal.
 bool MayCurrentAnimSwap(AnimSwapProc* proc) {
     u16 ogAnimID = proc->defaultLeftAnim;
+    u16 currentAnimID = gBattleAnimAnimationIndex.leftAnimID;
+
     if (GetAISSubjectId(proc->currentUnitAIS)) {
         ogAnimID = proc->defaultRightAnim;
+        currentAnimID = gBattleAnimAnimationIndex.rightAnimID;
     }
 
     for (int i = 0; gAnimExceptionList[i]; ++i) {
@@ -85,6 +88,12 @@ bool MayCurrentAnimSwap(AnimSwapProc* proc) {
             return FALSE;
         }
     }
+
+    //If animation for next action is the same, don't bother changing.
+    if (currentAnimID == GetSwapAnim(proc)) {
+        return FALSE;
+    }
+
     return TRUE;
 }
 
