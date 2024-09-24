@@ -6,7 +6,7 @@ extern int gSMSSyncFlag;
 extern UnitIconWait unit_icon_wait_table[];
 extern struct SMSHandle gSMSHandleArray[100];
 extern struct SMSHandle* gSMSHandleIt;
-
+extern int GetUnitDisplayedSpritePalette(const struct Unit * unit);
 extern u32 gMirrorSpriteOptions;
 
 enum {
@@ -34,6 +34,7 @@ const u16 gObject_32x32_HFlipped[] =
     1, OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_HFLIP, 0,
 };
 
+/*
 void RefreshUnitSprites(void)
 {
     struct SMSHandle * smsHandle;
@@ -74,32 +75,36 @@ void RefreshUnitSprites(void)
         smsHandle->xDisplay = unit->xPos * 16;
 
         smsHandle->oam2Base = UseUnitSprite(GetUnitSMSId(unit)) + 0x80 + (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000;
+*/
 
-		//SMSHandle._u0A appears to be unused, so I'll use it to track who should be flipped
-		smsHandle->_u0A = 0;
-		switch (UNIT_FACTION(unit)) {
-			case FACTION_BLUE:
-				if (gMirrorSpriteOptions & FLIP_PLAYER) {
-					smsHandle->_u0A = 1;
-				}
-				break;
-			case FACTION_RED:
-				if (gMirrorSpriteOptions & FLIP_ENEMY) {
-					smsHandle->_u0A = 1;
-				}
-				break;
-			case FACTION_GREEN:
-				if (gMirrorSpriteOptions & FLIP_NPC) {
-					smsHandle->_u0A = 1;
-				}
-				break;
-			case FACTION_PURPLE:
-				if (gMirrorSpriteOptions & FLIP_FOURTH) {
-					smsHandle->_u0A = 1;
-				}
-				break;
-		}
+void SetMirrorSpriteInSmsHandle(struct Unit* unit, struct SMSHandle * smsHandle) { 
+    //SMSHandle._u0A appears to be unused, so I'll use it to track who should be flipped
+    smsHandle->_u0A = 0;
+    switch (UNIT_FACTION(unit)) {
+        case FACTION_BLUE:
+            if (gMirrorSpriteOptions & FLIP_PLAYER) {
+                smsHandle->_u0A = 1;
+            }
+            break;
+        case FACTION_RED:
+            if (gMirrorSpriteOptions & FLIP_ENEMY) {
+                smsHandle->_u0A = 1;
+            }
+            break;
+        case FACTION_GREEN:
+            if (gMirrorSpriteOptions & FLIP_NPC) {
+                smsHandle->_u0A = 1;
+            }
+            break;
+        case FACTION_PURPLE:
+            if (gMirrorSpriteOptions & FLIP_FOURTH) {
+                smsHandle->_u0A = 1;
+            }
+            break;
+    }
+}
 
+/*
         smsHandle->config = GetInfo(GetUnitSMSId(unit)).size;
 
         if (unit->state & 0x100) {
@@ -156,6 +161,7 @@ void RefreshUnitSprites(void)
     if (gSMSSyncFlag != 0)
         ForceSyncUnitSpriteSheet();
 }
+*/
 
 void PutUnitSpritesOam(void)
 {
