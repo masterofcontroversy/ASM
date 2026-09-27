@@ -13,6 +13,7 @@ jumpToHack(StatscreenAlleg)
 PROTECT $8859c currentOffset
 POP
 
+ALIGN 4
 StatscreenAlleg:
 #incbin StatScreenAlleg.dmp
 POIN SSBluePal  //Player
